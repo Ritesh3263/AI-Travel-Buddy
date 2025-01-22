@@ -90,7 +90,7 @@ useEffect(() => {
             <ScrollArea className="overflow-y-auto px-6 py-4" >
               <div className="space-y-6" >
                 {messages.length === 0 &&(
-                  <div className="flex flex-col md:flex-row h-[calc(100vh-354px)] gap-3 justify-center items-center text-gray-500 dark:text-gray-400">
+                  <div className="flex flex-col md:flex-row h-96 gap-3 justify-center items-center text-gray-500 dark:text-gray-400">
                     <Plane className="h-6 w-6 text-white fill-current" />
                     <p className="text-sm text-center">No messages yet. Type a message to start the conversation.</p>
                     {/* {error && <p className="text-sm">Error Occured! Retry</p>} */}
