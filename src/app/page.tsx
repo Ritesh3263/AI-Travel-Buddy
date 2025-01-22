@@ -62,18 +62,22 @@ useEffect(() => {
       <div className="container max-w-5xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8 pt-8">
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="flex items-center justify-center gap-3 mb-6 w-full">
             <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 p-3 rounded-xl shadow-lg">
               <Plane className="h-8 w-8 text-white fill-current" />
             </div>
-            <h1 className="text-3xl font-semibold bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent">AI Travel Buddy</h1>
+            <h1 className="sm:max-md:text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent">AI Travel Buddy</h1>
           </div>
           <div className="max-w-2xl mx-auto">
             <Card className="bg-gradient-to-b from-white/80 to-white/60 dark:from-gray-800/80 dark:to-gray-800/60 backdrop-blur-lg border-gray-200/50 dark:border-gray-700/50 shadow-lg">
               <div className="p-6">
-                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-sm text-center text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <p className='hidden sm:flex' >
                   Our AI-powered travel assistant helps you create personalized travel itineraries, 
-                  find the best accommodations, and discover unique experiences tailored to your preferences.
+                  find the best accommodations, and discover unique experiences tailored to your preferences.</p>
+                  <p className='flex sm:hidden'>
+                    AI Travel Buddy is a free AI assistant that helps users create personalized travel itineraries.
+                  </p> 
                 </p>
               </div>
             </Card>
@@ -83,12 +87,12 @@ useEffect(() => {
         {/* Chat Interface */}
         <div className="grid gap-4">
           <Card className="bg-gradient-to-b from-white to-white/95 dark:from-gray-800 dark:to-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <ScrollArea className="h-[60vh] px-6 py-4" >
+            <ScrollArea className="h-[50vh] md:h-[60vh] overflow-y-auto px-6 py-4" >
               <div className="space-y-6" >
                 {messages.length === 0 &&(
-                  <div className="flex justify-center items-center h-[60vh] text-gray-500 dark:text-gray-400">
+                  <div className="flex flex-col md:flex-row gap-3 justify-center items-center h-[50vh] md:h-[60vh] text-gray-500 dark:text-gray-400">
                     <Plane className="h-6 w-6 text-white fill-current" />
-                    <p className="text-sm">&nbsp; No messages yet. Type a message to start the conversation.</p>
+                    <p className="text-sm text-center">No messages yet. Type a message to start the conversation.</p>
                     {/* {error && <p className="text-sm">Error Occured! Retry</p>} */}
                   </div>
                 )}
