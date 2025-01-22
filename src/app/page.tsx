@@ -2,12 +2,15 @@
 
 import { useChat } from 'ai/react';
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send, Loader2, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+
+import ReactMarkdown  from "react-markdown";
+import remarkGfm from 'remark-gfm';
 
 // interface Message {
 //   role: "user" | "assistant";
@@ -16,8 +19,43 @@ import { Input } from "@/components/ui/input";
 
 export default function Home() {
 
-  const { messages, input, isLoading, handleInputChange, handleSubmit } = useChat();
-  
+  const { messages, setMessages, input, isLoading, handleInputChange, handleSubmit, error } = useChat();
+
+  // useEffect(() => {
+  //   if (messages.length === 0) {
+  //     fetch('/api/chat', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ messages: [] }),
+       
+  //     })
+      
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (data.messages && data.messages.length > 0) {
+  //           setMessages([
+  //             {
+  //               id: Date.now().toString(), // Unique ID for the initial message
+  //               role: 'assistant',
+  //               content: 'Hello! I am your travel assistant. Where would you like to escape this time?',
+  //             },
+  //           ]);
+  //           console.log(data.messages);
+  //         }
+  //       })
+  //       .catch((err) => console.error('Error fetching initial message:', err));
+  //   }
+  // }, [messages, setMessages]);
+
+ // Ref to the scroll container
+ const chatEndRef = useRef<HTMLDivElement>(null)
+
+// Auto-scroll effect
+useEffect(() => {
+  chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+}, [messages])
+
+  // console.log(error);
   return (
     <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-50 via-gray-50 to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <h5 className='float-right p-5 text-gray-400'>Made with &#9829; by Ritesh</h5>
@@ -45,8 +83,16 @@ export default function Home() {
         {/* Chat Interface */}
         <div className="grid gap-4">
           <Card className="bg-gradient-to-b from-white to-white/95 dark:from-gray-800 dark:to-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <ScrollArea className="h-[60vh] px-6 py-4">
-              <div className="space-y-6">
+            <ScrollArea className="h-[60vh] px-6 py-4" >
+              <div className="space-y-6" >
+                {messages.length === 0 &&(
+                  <div className="flex justify-center items-center h-[60vh] text-gray-500 dark:text-gray-400">
+                    <Plane className="h-6 w-6 text-white fill-current" />
+                    <p className="text-sm">&nbsp; No messages yet. Type a message to start the conversation.</p>
+                    {/* {error && <p className="text-sm">Error Occured! Retry</p>} */}
+                  </div>
+                )}
+                
                 {messages.map((m) => (
                   <div
                     key={m.id}
@@ -62,7 +108,24 @@ export default function Home() {
                       }`}
                     >
                       <p className="text-sm leading-relaxed whitespace-pre-line">
-                        {m.content}
+                        
+                        <ReactMarkdown
+                          children={m.content}
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            ul: ({ children }) => (
+                              <ul className="list-disc pl-4">
+                                {children}
+                              </ul>
+                            ),
+                            ol: ({ children }) => (
+                              <ol className="list-decimal pl-4">
+                                {children}
+                              </ol>
+                            ),
+                            
+                          }}
+                        />
                       </p>
                     </div>
                   </div>
@@ -74,6 +137,7 @@ export default function Home() {
                     </div>
                   </div>
                 )}
+                <div ref={chatEndRef} />
               </div>
             </ScrollArea>
           </Card>
