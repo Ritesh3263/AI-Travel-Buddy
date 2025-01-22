@@ -57,7 +57,7 @@ useEffect(() => {
 
   // console.log(error);
   return (
-    <main className="min-h-screen max-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-50 via-gray-50 to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <main className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-50 via-gray-50 to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       <h5 className='float-right p-5 text-gray-400'>Made with &#9829; by Ritesh</h5>
       <div className="min-h-screen container max-w-5xl mx-auto p-6">
         {/* Header */}
