@@ -24,10 +24,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <head>
-      <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-      <title>AI Travel Buddy</title>
-    </head>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ai Travel Buddy</title>
+        <meta name="description" content="Plan your perfect trip with our AI-powered travel agent." />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <link rel="manifest" href="/manifest.json" />
+        
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased` + ' dark'}
       >
