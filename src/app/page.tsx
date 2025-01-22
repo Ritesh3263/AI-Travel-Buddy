@@ -87,10 +87,10 @@ useEffect(() => {
         {/* Chat Interface */}
         <div className="grid gap-4">
           <Card className="bg-gradient-to-b from-white to-white/95 dark:from-gray-800 dark:to-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <ScrollArea className="h-[50vh] md:h-[60vh] overflow-y-auto px-6 py-4" >
+            <ScrollArea className="h-[45vh] md:h-[60vh] overflow-y-auto px-6 py-4" >
               <div className="space-y-6" >
                 {messages.length === 0 &&(
-                  <div className="flex flex-col md:flex-row gap-3 justify-center items-center h-[50vh] md:h-[60vh] text-gray-500 dark:text-gray-400">
+                  <div className="flex flex-col md:flex-row gap-3 justify-center items-center h-[45vh] md:h-[60vh] text-gray-500 dark:text-gray-400">
                     <Plane className="h-6 w-6 text-white fill-current" />
                     <p className="text-sm text-center">No messages yet. Type a message to start the conversation.</p>
                     {/* {error && <p className="text-sm">Error Occured! Retry</p>} */}
