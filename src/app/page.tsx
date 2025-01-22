@@ -152,7 +152,7 @@ useEffect(() => {
               value={input}
               onChange={handleInputChange}
               placeholder="Describe your ideal trip..."
-              className="flex-grow bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm shadow-lg"
+              className="text-base sm:text-lg  flex-grow bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm shadow-lg"
             />
             <Button 
               type="submit" 
