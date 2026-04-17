@@ -56,7 +56,9 @@ export async function POST(req: Request) {
 
   try {
     const result = await streamText({
-    model: google(`gemini-1.5-flash`),
+    model: google('gemini-1.5-flash', {
+      apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+    }),
     messages,
     system:
       `You are a professional Travel agent` +
@@ -77,12 +79,16 @@ export async function POST(req: Request) {
     // prompt: `Based on all the questions user answered and the system prompts Format a well structured response about Iternary along with hotels cabs to take, different transport options, local foods to try and things to carry section according to weather and terrain`,
     })
 
-    return result.toDataStreamResponse()
+    const stream = result.toDataStreamResponse()
+    console.log("[v0] Stream created successfully")
+    return stream
   } catch (error) {
-    console.error("Error in chat API:", error)
+    console.error("[v0] Error in chat API:", error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error("[v0] Error details:", errorMessage)
     return new Response(
       JSON.stringify({
-        error: 'Failed to call Gemini API: ' + (error instanceof Error ? error.message : String(error))
+        error: 'Failed to call Gemini API: ' + errorMessage
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     )
