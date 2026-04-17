@@ -32,11 +32,11 @@ ensureGoogleCredentials()
 
 export async function POST(req: Request) {
   // If no credentials are available, return an informative error instead of failing silently.
-  if (!process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_CREDENTIALS) {
+  if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY && !process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_CREDENTIALS) {
     return new Response(
       JSON.stringify({
         error:
-          'Google credentials not found. Set GOOGLE_APPLICATION_CREDENTIALS (path to service account JSON) or set GOOGLE_CREDENTIALS (JSON string) in environment variables.'
+          'Google credentials not found. Set GOOGLE_GENERATIVE_AI_API_KEY in environment variables.'
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     )
