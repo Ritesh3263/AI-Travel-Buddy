@@ -112,26 +112,27 @@ useEffect(() => {
                           : "bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-700/90 mr-4"
                       }`}
                     >
-                      <p className="text-sm leading-relaxed whitespace-pre-line">
-                        
-                        <ReactMarkdown
-                          children={m.content}
-                          remarkPlugins={[remarkGfm]}
-                          components={{
-                            ul: ({ children }) => (
-                              <ul className="list-disc pl-4">
-                                {children}
-                              </ul>
-                            ),
-                            ol: ({ children }) => (
-                              <ol className="list-decimal pl-4">
-                                {children}
-                              </ol>
-                            ),
-                            
-                          }}
-                        />
-                      </p>
+                      <ReactMarkdown
+                        children={m.content}
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          p: ({ children }) => (
+                            <p className="text-sm leading-relaxed whitespace-pre-line">
+                              {children}
+                            </p>
+                          ),
+                          ul: ({ children }) => (
+                            <ul className="list-disc pl-4">
+                              {children}
+                            </ul>
+                          ),
+                          ol: ({ children }) => (
+                            <ol className="list-decimal pl-4">
+                              {children}
+                            </ol>
+                          ),
+                        }}
+                      />
                     </div>
                   </div>
                 ))}
