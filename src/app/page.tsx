@@ -23,6 +23,12 @@ export default function Home() {
     api: '/api/chat'
   });
 
+  useEffect(() => {
+    console.log("[v0] Messages received:", messages);
+    console.log("[v0] IsLoading:", isLoading);
+    console.log("[v0] Error:", error);
+  }, [messages, isLoading, error]);
+
   // useEffect(() => {
   //   if (messages.length === 0) {
   //     fetch('/api/chat', {
