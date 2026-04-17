@@ -31,6 +31,11 @@ function ensureGoogleCredentials() {
 ensureGoogleCredentials()
 
 export async function POST(req: Request) {
+  // Debug logging
+  console.log("[v0] API Key exists:", !!process.env.GOOGLE_GENERATIVE_AI_API_KEY)
+  console.log("[v0] API Key first 10 chars:", process.env.GOOGLE_GENERATIVE_AI_API_KEY?.substring(0, 10))
+  console.log("[v0] All env keys:", Object.keys(process.env).filter(k => k.includes('GOOGLE')))
+  
   // If no credentials are available, return an informative error instead of failing silently.
   if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY && !process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_CREDENTIALS) {
     return new Response(
@@ -54,7 +59,9 @@ export async function POST(req: Request) {
   //     ];
   //   }
 
-  const result = await streamText({
+  try {
+    console.log("[v0] Starting streamText with model:", 'gemini-1.5-flash')
+    const result = await streamText({
     model: google(`gemini-1.5-flash`),
     messages,
     system:
@@ -74,7 +81,17 @@ export async function POST(req: Request) {
       `Please format your responses using Markdown. Use **bold**, *italic*, lists, and other formatting`,
 
     // prompt: `Based on all the questions user answered and the system prompts Format a well structured response about Iternary along with hotels cabs to take, different transport options, local foods to try and things to carry section according to weather and terrain`,
-  })
+    })
 
-  return result.toDataStreamResponse()
+    console.log("[v0] streamText successful, returning response")
+    return result.toDataStreamResponse()
+  } catch (error) {
+    console.error("[v0] Error in streamText:", error)
+    return new Response(
+      JSON.stringify({
+        error: 'Failed to call Gemini API: ' + (error instanceof Error ? error.message : String(error))
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    )
+  }
 }
