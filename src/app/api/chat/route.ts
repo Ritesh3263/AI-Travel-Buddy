@@ -31,8 +31,11 @@ function ensureGoogleCredentials() {
 ensureGoogleCredentials()
 
 export async function POST(req: Request) {
+  console.log("[v0] POST /api/chat called")
+  
   // If no credentials are available, return an informative error instead of failing silently.
   if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY && !process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.GOOGLE_CREDENTIALS) {
+    console.log("[v0] No API key found")
     return new Response(
       JSON.stringify({
         error:
@@ -42,7 +45,9 @@ export async function POST(req: Request) {
     )
   }
 
+  console.log("[v0] API key exists")
   let { messages } = await req.json()
+  console.log("[v0] Messages received:", messages?.length || 0)
 
   //   if (!messages || messages.length === 0) {
   //     messages = [
@@ -55,10 +60,14 @@ export async function POST(req: Request) {
   //   }
 
   try {
-    const result = await streamText({
-    model: google('gemini-1.5-flash', {
+    console.log("[v0] Creating model instance...")
+    const model = google('gemini-1.5-flash', {
       apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    }),
+    })
+    console.log("[v0] Model created, calling streamText...")
+    
+    const result = await streamText({
+    model,
     messages,
     system:
       `You are a professional Travel agent` +
