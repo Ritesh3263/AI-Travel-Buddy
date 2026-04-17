@@ -61,11 +61,10 @@ export async function POST(req: Request) {
 
   try {
     console.log("[v0] Creating model instance...")
-    const model = google('gemini-1.5-flash', {
-      apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    })
+    const model = google('gemini-1.5-flash')
     console.log("[v0] Model created, calling streamText...")
     
+    console.log("[v0] System prompt loaded")
     const result = await streamText({
     model,
     messages,
