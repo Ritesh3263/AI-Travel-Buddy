@@ -19,7 +19,9 @@ import remarkGfm from 'remark-gfm';
 
 export default function Home() {
 
-  const { messages, setMessages, input, isLoading, handleInputChange, handleSubmit, error } = useChat();
+  const { messages, setMessages, input, isLoading, handleInputChange, handleSubmit, error } = useChat({
+    api: '/api/chat'
+  });
 
   // useEffect(() => {
   //   if (messages.length === 0) {
@@ -112,8 +114,7 @@ useEffect(() => {
                           : "bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-700/90 mr-4"
                       }`}
                     >
-                      <p className="text-sm leading-relaxed whitespace-pre-line">
-                        
+                      <div className="text-sm leading-relaxed whitespace-pre-line">
                         <ReactMarkdown
                           children={m.content}
                           remarkPlugins={[remarkGfm]}
@@ -128,10 +129,9 @@ useEffect(() => {
                                 {children}
                               </ol>
                             ),
-                            
                           }}
                         />
-                      </p>
+                      </div>
                     </div>
                   </div>
                 ))}
