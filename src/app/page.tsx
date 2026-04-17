@@ -19,7 +19,9 @@ import remarkGfm from 'remark-gfm';
 
 export default function Home() {
 
-  const { messages, setMessages, input, isLoading, handleInputChange, handleSubmit, error } = useChat();
+  const { messages, setMessages, input, isLoading, handleInputChange, handleSubmit, error } = useChat({
+    api: '/api/chat'
+  });
 
   // useEffect(() => {
   //   if (messages.length === 0) {
